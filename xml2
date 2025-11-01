@@ -1,0 +1,71 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="GoHiking MLD" id="GoHikingMLD">
+    <mxGraphModel dx="1200" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        
+        <!-- Utilisateur -->
+        <mxCell id="2" value="Utilisateur&#10;- id_utilisateur : INT PK&#10;- nom : VARCHAR(50)&#10;- prenom : VARCHAR(50)&#10;- email : VARCHAR(100) UNIQUE&#10;- mot_de_passe : VARCHAR(255)&#10;- niveau : VARCHAR(20)&#10;- experience : INT&#10;- region : VARCHAR(50)&#10;- objectifs : TEXT&#10;- date_inscription : TIMESTAMP" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="50" y="50" width="220" height="240" as="geometry"/>
+        </mxCell>
+        
+        <!-- Parcours -->
+        <mxCell id="3" value="Parcours&#10;- id_parcours : INT PK&#10;- nom : VARCHAR(100)&#10;- description : TEXT&#10;- distance : FLOAT&#10;- duree : FLOAT&#10;- difficulte : VARCHAR(20)&#10;- altitude_max : FLOAT&#10;- type_terrain : VARCHAR(50)&#10;- localisation : VARCHAR(100)&#10;- id_createur : INT FK → Utilisateur" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="300" y="50" width="240" height="240" as="geometry"/>
+        </mxCell>
+        
+        <!-- Post -->
+        <mxCell id="4" value="Post&#10;- id_post : INT PK&#10;- contenu_textuel : TEXT&#10;- type_media : VARCHAR(20)&#10;- date_publication : TIMESTAMP&#10;- id_utilisateur : INT FK → Utilisateur&#10;- id_parcours : INT FK → Parcours (optionnel)" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="600" y="50" width="240" height="180" as="geometry"/>
+        </mxCell>
+        
+        <!-- Groupe -->
+        <mxCell id="5" value="Groupe&#10;- id_groupe : INT PK&#10;- nom : VARCHAR(50)&#10;- region : VARCHAR(50)&#10;- description : TEXT" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="50" y="350" width="220" height="140" as="geometry"/>
+        </mxCell>
+        
+        <!-- Événement -->
+        <mxCell id="6" value="Événement&#10;- id_evenement : INT PK&#10;- nom : VARCHAR(100)&#10;- date : DATE&#10;- type : VARCHAR(50)&#10;- lieu : VARCHAR(100)&#10;- id_parcours : INT FK → Parcours (optionnel)" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="300" y="350" width="240" height="160" as="geometry"/>
+        </mxCell>
+        
+        <!-- Alerte -->
+        <mxCell id="7" value="Alerte&#10;- id_alerte : INT PK&#10;- type_alerte : VARCHAR(50)&#10;- message : TEXT&#10;- date : TIMESTAMP&#10;- id_parcours : INT FK → Parcours" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="600" y="350" width="240" height="160" as="geometry"/>
+        </mxCell>
+        
+        <!-- Campagne -->
+        <mxCell id="8" value="Campagne&#10;- id_campagne : INT PK&#10;- nom : VARCHAR(100)&#10;- description : TEXT&#10;- date_debut : DATE&#10;- date_fin : DATE" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="900" y="350" width="240" height="160" as="geometry"/>
+        </mxCell>
+        
+        <!-- Tables intermédiaires N,N -->
+        <mxCell id="9" value="Participation_evenement&#10;- id_utilisateur : INT FK → Utilisateur&#10;- id_evenement : INT FK → Événement&#10;- date_inscription : TIMESTAMP" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFCC99" vertex="1" parent="1">
+          <mxGeometry x="300" y="550" width="240" height="100" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="10" value="Membre_groupe&#10;- id_utilisateur : INT FK → Utilisateur&#10;- id_groupe : INT FK → Groupe&#10;- role : VARCHAR(20)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFCC99" vertex="1" parent="1">
+          <mxGeometry x="50" y="550" width="240" height="100" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="11" value="Participation_campagne&#10;- id_utilisateur : INT FK → Utilisateur&#10;- id_campagne : INT FK → Campagne" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFCC99" vertex="1" parent="1">
+          <mxGeometry x="900" y="550" width="240" height="80" as="geometry"/>
+        </mxCell>
+        
+        <!-- Relations visuelles -->
+        <mxCell id="12" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;html=1;" edge="1" parent="1" source="2" target="3"/>
+        <mxCell id="13" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;html=1;" edge="1" parent="1" source="2" target="4"/>
+        <mxCell id="14" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;html=1;" edge="1" parent="1" source="3" target="4"/>
+        <mxCell id="15" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;html=1;dashed=1;" edge="1" parent="1" source="2" target="9"/>
+        <mxCell id="16" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;html=1;dashed=1;" edge="1" parent="1" source="6" target="9"/>
+        <mxCell id="17" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;html=1;dashed=1;" edge="1" parent="1" source="2" target="10"/>
+        <mxCell id="18" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;html=1;dashed=1;" edge="1" parent="1" source="5" target="10"/>
+        <mxCell id="19" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;html=1;dashed=1;" edge="1" parent="1" source="2" target="11"/>
+        <mxCell id="20" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;html=1;dashed=1;" edge="1" parent="1" source="8" target="11"/>
+        <mxCell id="21" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;html=1;" edge="1" parent="1" source="3" target="7"/>
+        <mxCell id="22" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;html=1;" edge="1" parent="1" source="3" target="6"/>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
