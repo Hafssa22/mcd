@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net" modified="2025-11-01T00:00:00.000Z" agent="5.0 (Windows)" etag="1" version="20.0.3" type="device">
+  <diagram id="diagram-llm-recipes" name="Architecture LLM Recettes">
+    <mxGraphModel dx="1000" dy="700" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- Title -->
+        <mxCell id="title" value="Architecture - LLM Recettes (Local VM + Tor)" style="text;html=1;fontSize=16;fontStyle=1;align=center;verticalAlign=middle;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="180" y="10" width="980" height="30" as="geometry"/>
+        </mxCell>
+
+        <!-- Flutter Apps (left column) -->
+        <mxCell id="flutterA" value="Flutter APK (App-ID: recipeA)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#b3e5fc;strokeColor=#0288d1;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="20" y="70" width="200" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="flutterB" value="Flutter APK (App-ID: recipeB)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#b3e5fc;strokeColor=#0288d1;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="20" y="150" width="200" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- Tor / Internet -->
+        <mxCell id="tor" value="Tor Hidden Service (.onion)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#eeeeee;strokeColor=#616161;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="240" y="100" width="150" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- NGINX -->
+        <mxCell id="nginx" value="NGINX (Reverse Proxy)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c8e6c9;strokeColor=#2e7d32;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="420" y="80" width="200" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- Django API -->
+        <mxCell id="django" value="Django API (Auth / Gateway)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1bee7;strokeColor=#6a1b9a;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="660" y="80" width="220" height="90" as="geometry"/>
+        </mxCell>
+
+        <!-- Arrow FlutterA -> Tor -->
+        <mxCell id="edge1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#424242" edge="1" parent="1" source="flutterA" target="tor">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Arrow FlutterB -> Tor -->
+        <mxCell id="edge2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#424242" edge="1" parent="1" source="flutterB" target="tor">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Arrow Tor -> NGINX -->
+        <mxCell id="edge3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#1e88e5" edge="1" parent="1" source="tor" target="nginx">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Arrow NGINX -> Django -->
+        <mxCell id="edge4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#2e7d32" edge="1" parent="1" source="nginx" target="django">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- VM Ubuntu container -->
+        <mxCell id="vm" value="VM Ubuntu (Docker / systemd)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#faf2cc;strokeColor=#f57f17;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="660" y="200" width="520" height="420" as="geometry"/>
+        </mxCell>
+
+        <!-- FastAPI LLM Router inside VM -->
+        <mxCell id="fastapi" value="FastAPI LLM Router\n(Auth check, Router, Fallback)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe0b2;strokeColor=#fb8c00;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="690" y="220" width="460" height="70" as="geometry"/>
+        </mxCell>
+
+        <!-- Intent Classifier -->
+        <mxCell id="intent" value="Intent Classifier\n(DistilBERT quantifié)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffecb3;strokeColor=#f9a825;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="690" y="300" width="220" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- ASR -->
+        <mxCell id="asr" value="ASR (whisper.cpp)\nStreaming segments" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e0f7fa;strokeColor=#00796b;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="930" y="300" width="220" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- LLM Engine -->
+        <mxCell id="llm" value="LLM Engine\n(OrcaMini-3B GGUF q4 via llama.cpp)\nLazy-load / quantized" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffcdd2;strokeColor=#c62828;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="690" y="380" width="460" height="120" as="geometry"/>
+        </mxCell>
+
+        <!-- Vector DB -->
+        <mxCell id="vector" value="Vector Store (Qdrant / FAISS)\nCollections per App-ID" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f5e9;strokeColor=#2e7d32;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="690" y="510" width="220" height="70" as="geometry"/>
+        </mxCell>
+
+        <!-- Cache -->
+        <mxCell id="cache" value="Cache (Redis / LRU)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f3e5f5;strokeColor=#6a1b9a;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="930" y="510" width="220" height="70" as="geometry"/>
+        </mxCell>
+
+        <!-- Storage / Postgres -->
+        <mxCell id="storage" value="Storage: Postgres (Recipes)\nPersistent checkpoints" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eeeeee;strokeColor=#455a64;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="690" y="600" width="460" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- Monitoring -->
+        <mxCell id="monitor" value="Monitoring & Logs\n(Prometheus / Grafana / Loki)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e3f2fd;strokeColor=#1976d2;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="420" y="600" width="220" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- Admin hidden service -->
+        <mxCell id="admin" value="Admin Hidden Service (.onion)\nSSH / VPN (ops only)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#efebe9;strokeColor=#5d4037;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="1160" y="70" width="200" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- Edges Django -> FastAPI (internal) -->
+        <mxCell id="edge5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6a1b9a;labelPosition=center;align=center" edge="1" parent="1" source="django" target="fastapi">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="760" y="170" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Edges FastAPI -> Intent -->
+        <mxCell id="edge6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#f9a825" edge="1" parent="1" source="fastapi" target="intent">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Edges FastAPI -> ASR -->
+        <mxCell id="edge7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#00796b" edge="1" parent="1" source="fastapi" target="asr">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Edge Intent -> LLM (local path) -->
+        <mxCell id="edge8" value="if intent score ≥ 0.6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#c62828;align=center;" edge="1" parent="1" source="intent" target="llm">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Edge ASR -> Intent (streaming to classifier) -->
+        <mxCell id="edge9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#00796b" edge="1" parent="1" source="asr" target="intent">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Edge LLM -> Vector DB (RAG retrieve) -->
+        <mxCell id="edge10" value="RAG retrieve (top_k)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#2e7d32" edge="1" parent="1" source="llm" target="vector">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Edge LLM -> Cache -->
+        <mxCell id="edge11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#6a1b9a" edge="1" parent="1" source="llm" target="cache">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Edge LLM -> Storage -->
+        <mxCell id="edge12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#455a64" edge="1" parent="1" source="llm" target="storage">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Edge FastAPI -> Cache (to check recent) -->
+        <mxCell id="edge13" value="check cache" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#6a1b9a" edge="1" parent="1" source="fastapi" target="cache">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Edge Django -> Monitoring -->
+        <mxCell id="edge14" value="export metrics" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#1976d2" edge="1" parent="1" source="django" target="monitor">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Edge VM Admin (dashed) -->
+        <mxCell id="edge15" value="ops SSH via Admin .onion" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;strokeColor=#5d4037" edge="1" parent="1" source="admin" target="vm">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Edge NGINX -> Admin (dashed for admin console optional) -->
+        <mxCell id="edge16" value="optional admin routing" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;strokeColor=#5d4037" edge="1" parent="1" source="nginx" target="admin">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Legend box -->
+        <mxCell id="legend" value="Legend:\nGreen = Frontend\nBlue = Network/Proxy\nPurple = Backend\nOrange/Red = LLM Platform\nGray = Admin/Storage\nDashed = Admin/Fallback flows\nNotes: send features only; ephemeral encryption; lazy-load model" style="rounded=1;whiteSpace=wrap;html=1;fontSize=11;fillColor=#ffffff;strokeColor=#bdbdbd" vertex="1" parent="1">
+          <mxGeometry x="20" y="660" width="1160" height="120" as="geometry"/>
+        </mxCell>
+
+        <!-- Label near edge8 (fallback condition) -->
+        <mxCell id="fallbackLabel" value="if intent < 0.6 OR ASR conf < 0.7 -> fallback to remote server via Tor" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="690" y="320" width="460" height="20" as="geometry"/>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
